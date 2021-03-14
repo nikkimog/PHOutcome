@@ -16,7 +16,7 @@ if (!global.btoa) {
 if (!global.atob) {
 	global.atob = decode;
 }
-import {Onboarding} from './src/Onboarding/Onboarding'
+import { Onboarding } from "./src/Onboarding/Onboarding";
 
 const Stack = createStackNavigator();
 
@@ -55,18 +55,20 @@ export default function App() {
 				screenOptions={{
 					headerShown: false,
 				}}
+				independent={true}
 			>
 				{user ? (
-					<Stack.Screen name="Home">
-						{(props) => <HomeScreen {...props} extraData={user} />}
-					</Stack.Screen>
-						<Stack.Screen name="Onboarding">
-						{(props) => <Onboarding {...props} extraData={user} />}
-					</Stack.Screen>
+					<>
+						{/* <Stack.Screen name="Home">
+							{(props) => <HomeScreen {...props} />}
+						</Stack.Screen> */}
+						<Stack.Screen name="Onboarding" component={Onboarding} />
+					</>
 				) : (
 					<>
 						<Stack.Screen name="Login" component={LoginScreen} />
 						<Stack.Screen name="Registration" component={RegistrationScreen} />
+						<Stack.Screen name="Onboarding" component={Onboarding} />
 					</>
 				)}
 			</Stack.Navigator>

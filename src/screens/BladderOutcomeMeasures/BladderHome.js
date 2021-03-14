@@ -25,6 +25,11 @@ const Stack = createStackNavigator();
 
 function BladderHome(props) {
 	let navigation = props.navigation;
+	// static navigationOptions = ({ navigation }) => ({
+	// 	title: "MyScreen",
+	// 	headerLeft: null,
+	// });
+
 	const [text, setText] = React.useState("");
 	console.log("bladder home");
 	console.log("props in bladder home", props);
@@ -62,7 +67,7 @@ function BladderHome(props) {
 
 export default function BladderRoot({ navigation }) {
 	return (
-		<Stack.Navigator initialRouteName="BladderHome">
+		<Stack.Navigator initialRouteName="BladderHome" headerBackTitle="null">
 			<Stack.Screen name="BladderHome" component={BladderHome} />
 			<Stack.Screen
 				name="Incontinence Impact Questionniare"

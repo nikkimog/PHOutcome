@@ -162,8 +162,8 @@ function HomeScreen({ navigation }) {
 export default function Apps(props) {
 	// console.log("route.params", route.params);
 	// console.log("props", props);
-	console.log("props.extraData", props.extraData);
-	let userId = props.extraData.fullName;
+	// console.log("props.extraData", props.extraData);
+	// let userId = props.extraData.fullName;
 
 	let x = 1;
 	const [user, setUser] = useState(props.extraData);
@@ -172,11 +172,11 @@ export default function Apps(props) {
 	return (
 		// <Provider>
 		<NavigationContainer independent={true}>
-			<Drawer.Navigator initialRouteName="NewHome">
+			<Drawer.Navigator initialRouteName="NewHome" headerBackTitle="null">
 				<Drawer.Screen
 					name="NewHome"
 					component={HomeScreen}
-					setParams={{ userId: props.extraData.id }}
+					// setParams={{ userId: props.extraData.id }}
 				/>
 				<Drawer.Screen name="bladder" component={BladderHome} />
 				{/* component={BladderHome}
