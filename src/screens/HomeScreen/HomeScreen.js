@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import {
 	FlatList,
 	Keyboard,
 	Text,
 	TextInput,
 	TouchableOpacity,
-	Button,
 	View,
 	SafeAreaView,
 	StatusBar,
@@ -16,39 +15,60 @@ import { NavigationContainer } from "@react-navigation/native";
 // import styles from "./styles";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 // import { firebase } from "../../firebase/config";
-import Bladder from "../Bladder";
-import QuestionTwo from "../bladderquestions/QuestionTwo";
+import BladderHome from "../BladderOutcomeMeasures/BladderHome";
+// import QuestionTwo from "../BladderOutcomeMeasures/UDI/bladderquestions/QuestionTwo";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Button } from "react-native-paper";
+import { userContext, Provider } from "../LoginScreen/LoginScreen";
 
 const Drawer = createDrawerNavigator();
 
 const Stack = createStackNavigator();
 function HomeScreen({ navigation }) {
-	// console.log("props.", props);
+	// console.log("props in homescreen", props);
+	// console.log(user);
+	// console.log("route in homescreen", route);
+	// let fullName = props.extraData["fullName"];
 	// console.log("route.params", route.params);
+	// console.log("userContext in homescren", userContext);
 	const handlePress = () => <Bladder />;
+	// <userContext.Consumer>{console.log("user", context)}</userContext.Consumer>;
 	return (
 		<SafeAreaView style={styles.container}>
-			<Text numberOfLines={1} onPress={handlePress}>
-				Test your pelvic health knowledge!
+			{/* <userContext.Consumer>
+				{(context) => <Text>{context}</Text>}
+			</userContext.Consumer> */}
+			<Text style={styles.baseText} onPress={handlePress}>
+				Welcome to Pelvic Health Outcomes {"\n"}
 			</Text>
-			<Text>
-				{" "}
-				Swipe right or
-				<Button title="click here" onPress={() => navigation.openDrawer()} /> to
-				view the quizzes!
-			</Text>
-			<Image
+			<View style={{ textAlign: "center" }}>
+				<Text>
+					{" "}
+					Swipe right or {"\n"}
+					{"\n"}
+					<Button
+						mode="contained"
+						title="click here"
+						color="#cd5c5c"
+						onPress={() => navigation.openDrawer()}
+					>
+						Click Here
+					</Button>
+					{"\n"} {"\n"}to view the categories.
+				</Text>
+			</View>
+			{/* <Image
 				// resizeMode="repeat"
 				style={{ height: 100, width: 100 }}
-				source={require("../image7.png")}
-			/>
-			<Text>Yo</Text>
+				source={require("../image7.png")} */}
+			{/* /> */}
 			<Button
 				color="orange"
 				title="click me"
 				onPress={() => alert("button tapped")}
-			/>
+			>
+				Click Me
+			</Button>
 			<StatusBar style="auto" />
 		</SafeAreaView>
 	);
@@ -139,39 +159,34 @@ function HomeScreen({ navigation }) {
 	// );
 }
 
-export default function Apps(props, { route }) {
+export default function Apps(props) {
 	// console.log("route.params", route.params);
 	// console.log("props", props);
+	console.log("props.extraData", props.extraData);
+	let userId = props.extraData.fullName;
+
 	let x = 1;
+	const [user, setUser] = useState(props.extraData);
+	console.log("user", { user });
 
 	return (
-		// <NavigationContainer independent={true}>
-		// 	<NavigationContainer independent={true}>
-		// 		<Stack.Navigator>
-		// 			<Stack.Screen name="q2" component={QuestionTwo} />
-		// 			<Stack.Screen
-		// 				name="bladder"
-		// 				component={Bladder}
-		// 				options={{ title: "Bladder Quiz" }}
-		// 			/>
-		// 		</Stack.Navigator>
-		// 	</NavigationContainer>
+		// <Provider>
 		<NavigationContainer independent={true}>
 			<Drawer.Navigator initialRouteName="NewHome">
 				<Drawer.Screen
 					name="NewHome"
 					component={HomeScreen}
-					userId={props.extraData.id}
+					setParams={{ userId: props.extraData.id }}
 				/>
-				<Drawer.Screen
-					name="bladder"
-					component={Bladder}
-					userId={props.extraData.id}
-				/>
+				<Drawer.Screen name="bladder" component={BladderHome} />
+				{/* component={BladderHome}
+					initialParams={{ userId: props.extraData.id }} */}
+
+				{/* /> */}
 				{/* <Drawer.Screen name="q2" component={QuestionTwo} /> */}
 			</Drawer.Navigator>
 		</NavigationContainer>
-		// </NavigationContainer>
+		// </Provider>
 	);
 }
 
@@ -181,5 +196,16 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
+		fontSize: 40,
+	},
+	baseText: {
+		fontFamily: "Cochin",
+		fontSize: 30,
+		textAlign: "center",
+	},
+	button: {
+		alignItems: "center",
+		backgroundColor: "#DDDDDD",
+		padding: 10,
 	},
 });

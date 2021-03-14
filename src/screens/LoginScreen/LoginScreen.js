@@ -4,6 +4,8 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import styles from "./styles";
 import { firebase } from "../../firebase/config";
 
+let user = {};
+
 export default function LoginScreen({ navigation }) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -27,7 +29,7 @@ export default function LoginScreen({ navigation }) {
 							alert("User does not exist anymore.");
 							return;
 						}
-						const user = firestoreDocument.data();
+						let user = firestoreDocument.data();
 						navigation.navigate("NewHome", { user: user });
 					})
 					.catch((error) => {
@@ -83,3 +85,6 @@ export default function LoginScreen({ navigation }) {
 		</View>
 	);
 }
+
+export const userContext = React.createContext({ user: user });
+export const Provider = userContext.Provider;

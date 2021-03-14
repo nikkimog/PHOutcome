@@ -16,6 +16,7 @@ if (!global.btoa) {
 if (!global.atob) {
 	global.atob = decode;
 }
+import {Onboarding} from './src/Onboarding/Onboarding'
 
 const Stack = createStackNavigator();
 
@@ -50,10 +51,17 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<Stack.Navigator>
+			<Stack.Navigator
+				screenOptions={{
+					headerShown: false,
+				}}
+			>
 				{user ? (
 					<Stack.Screen name="Home">
 						{(props) => <HomeScreen {...props} extraData={user} />}
+					</Stack.Screen>
+						<Stack.Screen name="Onboarding">
+						{(props) => <Onboarding {...props} extraData={user} />}
 					</Stack.Screen>
 				) : (
 					<>
