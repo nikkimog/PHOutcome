@@ -19,10 +19,10 @@ export const Onboarding = ({ navigation }) => {
 						style={{ textAlign: "center" }}
 						backgroundColor="steelblue"
 						iconName="file-text"
-						title="Welcome to Pelvic Health Outcomes"
+						title={`Welcome to Pelvic Health ${"\n"}                Outcomes`}
 					/>
 					<Footer
-						backgroundColor="midnightblue"
+						backgroundColor="#303b5b"
 						rightButtonLabel="Next"
 						rightButtonPress={() => {
 							handlePageChange(1);
@@ -37,10 +37,10 @@ export const Onboarding = ({ navigation }) => {
 					<Page
 						backgroundColor="steelblue"
 						iconName="home"
-						title={`• Start at the home page ${"\n"} • Swipe right to view the categories on the left sidebar ${"\n"} • Click desired category`}
+						title={`• Start at the home page ${"\n"} • Swipe right to view the categories on the left sidebar ${"\n"} • Tap desired category`}
 					/>
 					<Footer
-						backgroundColor="midnightblue"
+						backgroundColor="#303b5b"
 						rightButtonLabel="Next"
 						// rightButtonPress={() => true}
 						rightButtonPress={() => {
@@ -56,11 +56,11 @@ export const Onboarding = ({ navigation }) => {
 					<Page
 						backgroundColor="steelblue"
 						iconName="at-sign"
-						title={`• Enter provider's email ${"\n"} • Complete survey ${"\n"} • Click button to send results to provider ${"\n"} • Repeat as needed`}
+						title={`• Enter provider's email ${"\n"} • Complete survey ${"\n"} • Tap button to send results to provider ${"\n"} • Repeat as needed`}
 					/>
 					<Footer
-						backgroundColor="midnightblue"
-						rightButtonLabel="Next"
+						backgroundColor="#303b5b"
+						rightButtonLabel="Let's start!"
 						rightButtonPress={() => navigation.navigate("Home")}
 						leftButtonLabel="Back"
 						leftButtonPress={() => {

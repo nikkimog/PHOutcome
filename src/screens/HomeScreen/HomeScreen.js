@@ -12,181 +12,84 @@ import {
 	Image,
 } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-// import styles from "./styles";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-// import { firebase } from "../../firebase/config";
 import BladderHome from "../BladderOutcomeMeasures/BladderHome";
-// import QuestionTwo from "../BladderOutcomeMeasures/UDI/bladderquestions/QuestionTwo";
+import RectalHome from "../RectalOutcomeMeasures/RectalHome";
+import PelvicHome from "../PelvicPainOutcomeMeasures/PelvicPainHome";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Button } from "react-native-paper";
-import { userContext, Provider } from "../LoginScreen/LoginScreen";
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+
+import Carousel, { Pagination } from "react-native-x2-carousel";
 
 const Drawer = createDrawerNavigator();
 
-const Stack = createStackNavigator();
+const DATA = [
+	{ text: "Pelvic Floor Fun Facts" },
+	{ text: "A regular urination frequency is every 2-4 hours" },
+	{ text: "Less than 3 bowel movements a week is constipation" },
+	{ text: "Carbonated beverages are a bladder irritant" },
+];
+// const DATA = [{ text: "#1" }, { text: "#2" }, { text: "#3" }];
+
 function HomeScreen({ navigation }) {
-	// console.log("props in homescreen", props);
-	// console.log(user);
-	// console.log("route in homescreen", route);
-	// let fullName = props.extraData["fullName"];
-	// console.log("route.params", route.params);
-	// console.log("userContext in homescren", userContext);
 	const handlePress = () => <Bladder />;
-	// <userContext.Consumer>{console.log("user", context)}</userContext.Consumer>;
+	const renderItem = (data) => (
+		<View key={data.text} style={styles.item}>
+			<Text style={styles.itemText}>{data.text}</Text>
+			{/* <Image source={data.file} /> */}
+		</View>
+	);
 	return (
 		<SafeAreaView style={styles.container}>
-			{/* <userContext.Consumer>
-				{(context) => <Text>{context}</Text>}
-			</userContext.Consumer> */}
 			<Text style={styles.baseText} onPress={handlePress}>
 				Welcome to Pelvic Health Outcomes {"\n"}
 			</Text>
-			<View style={{ textAlign: "center" }}>
-				<Text>
-					{" "}
-					Swipe right or {"\n"}
-					{"\n"}
-					<Button
-						mode="contained"
-						title="click here"
-						color="#cd5c5c"
-						onPress={() => navigation.openDrawer()}
-					>
-						Click Here
-					</Button>
-					{"\n"} {"\n"}to view the categories.
-				</Text>
-			</View>
-			{/* <Image
-				// resizeMode="repeat"
-				style={{ height: 100, width: 100 }}
-				source={require("../image7.png")} */}
-			{/* /> */}
-			<Button
-				color="orange"
-				title="click me"
-				onPress={() => alert("button tapped")}
+			<View
+			// style={{ textAlign: "center" }}
 			>
-				Click Me
-			</Button>
+				<Text style={styles.bodyText}> Swipe right or</Text>
+				<Button
+					style={{ width: 150, marginLeft: "auto", marginRight: "auto" }}
+					mode="contained"
+					color="steelblue"
+					onPress={() => navigation.openDrawer()}
+				>
+					Tap Here
+				</Button>
+				<Text style={styles.bodyText}>to view the categories.</Text>
+			</View>
+
+			<View style={styles.carousel}>
+				<Carousel pagination={Pagination} renderItem={renderItem} data={DATA} />
+			</View>
 			<StatusBar style="auto" />
 		</SafeAreaView>
 	);
-	// }
-	// const [entityText, setEntityText] = useState("");
-	// const [entities, setEntities] = useState([]);
-
-	// const entityRef = firebase.firestore().collection("entities");
-	// const userID = props.extraData.id;
-
-	// useEffect(() => {
-	// 	entityRef
-	// 		.where("authorID", "==", userID)
-	// 		.orderBy("createdAt", "desc")
-	// 		.onSnapshot(
-	// 			(querySnapshot) => {
-	// 				const newEntities = [];
-	// 				querySnapshot.forEach((doc) => {
-	// 					const entity = doc.data();
-	// 					entity.id = doc.id;
-	// 					newEntities.push(entity);
-	// 				});
-	// 				setEntities(newEntities);
-	// 			},
-	// 			(error) => {
-	// 				console.log(error);
-	// 			}
-	// 		);
-	// }, []);
-
-	// const onAddButtonPress = () => {
-	// 	if (entityText && entityText.length > 0) {
-	// 		const timestamp = firebase.firestore.FieldValue.serverTimestamp();
-	// 		const data = {
-	// 			text: entityText,
-	// 			authorID: userID,
-	// 			createdAt: timestamp,
-	// 		};
-	// 		entityRef
-	// 			.add(data)
-	// 			.then((_doc) => {
-	// 				setEntityText("");
-	// 				Keyboard.dismiss();
-	// 			})
-	// 			.catch((error) => {
-	// 				alert(error);
-	// 			});
-	// 	}
-	// };
-
-	// const renderEntity = ({ item, index }) => {
-	// 	return (
-	// 		<View style={styles.entityContainer}>
-	// 			<Text style={styles.entityText}>
-	// 				{index}. {item.text}
-	// 			</Text>
-	// 		</View>
-	// 	);
-	// };
-
-	// return (
-	// 	<View style={styles.container}>
-	// 		<View style={styles.formContainer}>
-	// 			<TextInput
-	// 				style={styles.input}
-	// 				placeholder="Add new entity"
-	// 				placeholderTextColor="#aaaaaa"
-	// 				onChangeText={(text) => setEntityText(text)}
-	// 				value={entityText}
-	// 				underlineColorAndroid="transparent"
-	// 				autoCapitalize="none"
-	// 			/>
-	// 			<TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
-	// 				<Text style={styles.buttonText}>Add</Text>
-	// 			</TouchableOpacity>
-	// 		</View>
-	// 		{entities && (
-	// 			<View style={styles.listContainer}>
-	// 				<FlatList
-	// 					data={entities}
-	// 					renderItem={renderEntity}
-	// 					keyExtractor={(item) => item.id}
-	// 					removeClippedSubviews={true}
-	// 				/>
-	// 			</View>
-	// 		)}
-	// 	</View>
-	// );
 }
 
+const theme = {
+	...DefaultTheme,
+	roundness: 2,
+	colors: {
+		...DefaultTheme.colors,
+		primary: "steelblue",
+		accent: "steelblue",
+	},
+};
+
 export default function Apps(props) {
-	// console.log("route.params", route.params);
-	// console.log("props", props);
-	// console.log("props.extraData", props.extraData);
-	// let userId = props.extraData.fullName;
-
-	let x = 1;
-	const [user, setUser] = useState(props.extraData);
-	console.log("user", { user });
-
 	return (
-		// <Provider>
-		<NavigationContainer independent={true}>
-			<Drawer.Navigator initialRouteName="NewHome" headerBackTitle="null">
-				<Drawer.Screen
-					name="NewHome"
-					component={HomeScreen}
-					// setParams={{ userId: props.extraData.id }}
-				/>
-				<Drawer.Screen name="bladder" component={BladderHome} />
-				{/* component={BladderHome}
-					initialParams={{ userId: props.extraData.id }} */}
-
-				{/* /> */}
-				{/* <Drawer.Screen name="q2" component={QuestionTwo} /> */}
-			</Drawer.Navigator>
-		</NavigationContainer>
-		// </Provider>
+		<PaperProvider theme={theme}>
+			<NavigationContainer independent={true}>
+				<Drawer.Navigator initialRouteName="Home" headerBackTitle="null">
+					<Drawer.Screen name="Home" component={HomeScreen} />
+					<Drawer.Screen name="Urinary Outcomes" component={BladderHome} />
+					<Drawer.Screen name="Rectal Outcomes" component={RectalHome} />
+					<Drawer.Screen name="Pelvic Pain Outcomes" component={PelvicHome} />
+				</Drawer.Navigator>
+			</NavigationContainer>
+		</PaperProvider>
 	);
 }
 
@@ -196,16 +99,44 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		alignItems: "center",
 		justifyContent: "center",
+
 		fontSize: 40,
 	},
 	baseText: {
+		marginTop: 50,
 		fontFamily: "Cochin",
 		fontSize: 30,
 		textAlign: "center",
+	},
+	bodyText: {
+		textAlign: "center",
+		fontSize: 20,
+		marginBottom: 10,
+
+		marginTop: 10,
+		fontFamily: "Arial Rounded MT Bold",
 	},
 	button: {
 		alignItems: "center",
 		backgroundColor: "#DDDDDD",
 		padding: 10,
+	},
+
+	item: {
+		marginTop: 50,
+		width: 200,
+		height: 200,
+		borderRadius: 50,
+		alignItems: "center",
+		justifyContent: "center",
+		color: "white",
+		backgroundColor: "slategray",
+	},
+	itemText: {
+		margin: 20,
+		fontFamily: "Arial Rounded MT Bold",
+		fontSize: 25,
+		textAlign: "center",
+		color: "white",
 	},
 });

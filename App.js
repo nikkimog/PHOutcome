@@ -59,9 +59,9 @@ export default function App() {
 			>
 				{user ? (
 					<>
-						{/* <Stack.Screen name="Home">
+						<Stack.Screen name="Home">
 							{(props) => <HomeScreen {...props} />}
-						</Stack.Screen> */}
+						</Stack.Screen>
 						<Stack.Screen name="Onboarding" component={Onboarding} />
 					</>
 				) : (

@@ -1,61 +1,58 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	SafeAreaView,
-	Button,
-	ScrollView,
-} from "react-native";
-import { RadioButton } from "react-native-paper";
-// import QuestionOne from "./UDI/bladderquestions/QuestionOne";
-// import QuestionTwo from "./UDI/bladderquestions/QuestionTwo";
-// import { calculateQ2 } from "./UDI/bladderquestions/QuestionTwo";
-// import { calculateQ1 } from "./UDI/bladderquestions/QuestionOne";
+import { StyleSheet, Text, SafeAreaView } from "react-native";
+
 import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
 import IIQHome from "./IIQ/IIQHome";
 import UDIHome from "./UDI/UDIHome";
-// import { userContext, Provider } from "../HomeScreen";
 import { TextInput } from "react-native-paper";
+import { useTheme, Button } from "react-native-paper";
 
 const Stack = createStackNavigator();
 
 function BladderHome(props) {
 	let navigation = props.navigation;
-	// static navigationOptions = ({ navigation }) => ({
-	// 	title: "MyScreen",
-	// 	headerLeft: null,
-	// });
+	const { colors } = useTheme();
 
 	const [text, setText] = React.useState("");
-	console.log("bladder home");
-	console.log("props in bladder home", props);
+
 	return (
 		<SafeAreaView style={styles.container}>
-			<Text>Choose a Bladder Focused Outcome Measure</Text>
+			<Text style={styles.text}>Choose a Urinary Focused Outcome Measure</Text>
 			<Button
+				mode="contained"
+				style={{
+					width: 350,
+					marginLeft: "auto",
+					marginRight: "auto",
+					marginBottom: 10,
+				}}
 				title="Incontinence Impact Questionnaire"
 				onPress={() =>
 					navigation.navigate("Incontinence Impact Questionniare", {
 						email: { text },
 					})
 				}
-			/>
+			>
+				Incontinence Impact Questionnaire
+			</Button>
 			<Button
+				mode="contained"
 				title="Urinary Distress Inventory"
 				onPress={() =>
 					navigation.navigate("Urinary Distress Inventory", { email: { text } })
 				}
-			/>
-			<Text>
+			>
+				Urinary Distress Inventory
+			</Button>
+			<Text style={styles.bottomText}>
 				If you'd like to send these results to your provider, enter their email
 				below.
 			</Text>
 			<TextInput
-				style={{ width: 300 }}
+				style={{
+					width: 300,
+					color: colors.primary,
+				}}
 				label="Email"
 				mode="outlined"
 				value={text}
@@ -65,21 +62,19 @@ function BladderHome(props) {
 	);
 }
 
-export default function BladderRoot({ navigation }) {
+export default function BladderRoot() {
 	return (
-		<Stack.Navigator initialRouteName="BladderHome" headerBackTitle="null">
-			<Stack.Screen name="BladderHome" component={BladderHome} />
+		<Stack.Navigator initialRouteName="Urinary Home" headerBackTitle="null">
+			<Stack.Screen name="Urinary Home" component={BladderHome} />
 			<Stack.Screen
 				name="Incontinence Impact Questionniare"
 				headerTitle="none"
 				component={IIQHome}
-				initialParams={{ email: "kaibastos@gmail.com" }}
 			/>
 			<Stack.Screen
 				name="Urinary Distress Inventory"
 				headerTitle="none"
 				component={UDIHome}
-				initialParams={{ email: "kaibastos@gmail.com" }}
 			/>
 		</Stack.Navigator>
 	);
@@ -90,6 +85,15 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: "white",
 		alignItems: "center",
-		// justifyContent: "center",
+	},
+	text: {
+		margin: 30,
+		fontFamily: "ArialMT",
+		fontSize: 20,
+		textAlign: "center",
+	},
+	bottomText: {
+		marginTop: 40,
+		margin: 10,
 	},
 });

@@ -20,7 +20,7 @@ const Page = ({ backgroundColor, iconName, title }) => {
 						fontWeight: "bold",
 						color: "white",
 						margin: 20,
-						textAlign: "center",
+						textAlign: "left",
 					}}
 				>
 					{title}
