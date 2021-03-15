@@ -1,14 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	SafeAreaView,
-	ScrollView,
-	TextInput,
-} from "react-native";
+import { StyleSheet, Text, ScrollView } from "react-native";
 import { Button } from "react-native-paper";
 import QuestionOne from "./QuestionOne";
 import QuestionTwo from "./QuestionTwo";
@@ -19,40 +10,8 @@ import { calculateQ1 } from "./QuestionOne";
 import { calculateQ2 } from "./QuestionTwo";
 import { calculateQ3 } from "./QuestionThree";
 import { calculateQ4 } from "./QuestionFour";
-
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import qs from "qs";
-import { Linking } from "react-native";
+import sendEmail from "../../sendEmail";
 import { Banner } from "react-native-paper";
-
-async function sendEmail(to, subject, body, options = {}) {
-	const { cc, bcc } = options;
-
-	let url = `mailto:${to}`;
-
-	// Create email link query
-	const query = qs.stringify({
-		subject: subject,
-		body: body,
-		cc: cc,
-		bcc: bcc,
-	});
-
-	if (query.length) {
-		url += `?${query}`;
-	}
-	console.log("url", url);
-
-	// check if we can use this link
-	const canOpen = await Linking.canOpenURL(url);
-
-	if (!canOpen) {
-		throw new Error("Provided URL can not be handled");
-	}
-
-	return Linking.openURL(url);
-}
 
 let total = 0;
 export default function FISIHome(props) {
@@ -112,7 +71,6 @@ export default function FISIHome(props) {
 			<Button
 				labelStyle={{ color: "white" }}
 				style={{
-					// margin: 10,
 					width: 300,
 					marginBottom: 80,
 					marginLeft: "auto",

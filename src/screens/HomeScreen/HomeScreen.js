@@ -1,22 +1,11 @@
-import React, { useEffect, useState, createContext } from "react";
-import {
-	FlatList,
-	Keyboard,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	View,
-	SafeAreaView,
-	StatusBar,
-	StyleSheet,
-	Image,
-} from "react-native";
+import React from "react";
+import { Text, View, SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import BladderHome from "../BladderOutcomeMeasures/BladderHome";
 import RectalHome from "../RectalOutcomeMeasures/RectalHome";
 import PelvicHome from "../PelvicPainOutcomeMeasures/PelvicPainHome";
-import { createStackNavigator } from "@react-navigation/stack";
+
 import { Button } from "react-native-paper";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
@@ -30,14 +19,12 @@ const DATA = [
 	{ text: "Less than 3 bowel movements a week is constipation" },
 	{ text: "Carbonated beverages are a bladder irritant" },
 ];
-// const DATA = [{ text: "#1" }, { text: "#2" }, { text: "#3" }];
 
 function HomeScreen({ navigation }) {
 	const handlePress = () => <Bladder />;
 	const renderItem = (data) => (
 		<View key={data.text} style={styles.item}>
 			<Text style={styles.itemText}>{data.text}</Text>
-			{/* <Image source={data.file} /> */}
 		</View>
 	);
 	return (
@@ -45,9 +32,7 @@ function HomeScreen({ navigation }) {
 			<Text style={styles.baseText} onPress={handlePress}>
 				Welcome to Pelvic Health Outcomes {"\n"}
 			</Text>
-			<View
-			// style={{ textAlign: "center" }}
-			>
+			<View>
 				<Text style={styles.bodyText}> Swipe right or</Text>
 				<Button
 					style={{ width: 150, marginLeft: "auto", marginRight: "auto" }}

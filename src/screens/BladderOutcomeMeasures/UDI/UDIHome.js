@@ -1,14 +1,5 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	SafeAreaView,
-	ScrollView,
-	TextInput,
-} from "react-native";
+import { StyleSheet, Text, ScrollView } from "react-native";
 import { Button } from "react-native-paper";
 import QuestionOne from "./QuestionOne";
 import QuestionTwo from "./QuestionTwo";
@@ -24,38 +15,7 @@ import { calculateQ4 } from "./QuestionFour";
 import { calculateQ5 } from "./QuestionFive";
 import { calculateQ6 } from "./QuestionSix";
 import { calculateQ7 } from "./QuestionSeven";
-import { createStackNavigator } from "@react-navigation/stack";
-import { NavigationContainer } from "@react-navigation/native";
-import qs from "qs";
-import { Linking } from "react-native";
-
-async function sendEmail(to, subject, body, options = {}) {
-	const { cc, bcc } = options;
-
-	let url = `mailto:${to}`;
-
-	// Create email link query
-	const query = qs.stringify({
-		subject: subject,
-		body: body,
-		cc: cc,
-		bcc: bcc,
-	});
-
-	if (query.length) {
-		url += `?${query}`;
-	}
-	console.log("url", url);
-
-	// check if we can use this link
-	const canOpen = await Linking.canOpenURL(url);
-
-	if (!canOpen) {
-		throw new Error("Provided URL can not be handled");
-	}
-
-	return Linking.openURL(url);
-}
+import sendEmail from "../../sendEmail";
 
 let total = 0;
 export default function UDIHome(props) {
@@ -64,10 +24,9 @@ export default function UDIHome(props) {
 	let navigation = props.navigation;
 	const [score, setScore] = React.useState(0);
 
-	// const [q7, setQ7] = React.useState(0);
 	function scoreMathz() {
 		total = 0;
-		// setQ7(calculateQ7());
+
 		total =
 			calculateQ1() +
 			calculateQ2() +
@@ -101,7 +60,6 @@ export default function UDIHome(props) {
 				title="click here"
 				color="#cd5c5c"
 				labelStyle={{ color: "white" }}
-				// color="white"
 				style={{ width: 200, marginLeft: "auto", marginRight: "auto" }}
 				onPress={() => scoreMathz()}
 			>
@@ -116,7 +74,6 @@ export default function UDIHome(props) {
 			<Button
 				labelStyle={{ color: "white" }}
 				style={{
-					// margin: 10,
 					width: 300,
 					marginBottom: 80,
 					marginLeft: "auto",

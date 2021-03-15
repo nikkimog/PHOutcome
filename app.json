@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "React Native App built in four day stackathon. Utilizing firebase for authentication. "
   }
 }

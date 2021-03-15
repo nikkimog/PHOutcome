@@ -1,11 +1,11 @@
 import qs from "qs";
+import { Linking } from "react-native";
 
-export async function sendEmail(to, subject, body, options = {}) {
+export default async function sendEmail(to, subject, body, options = {}) {
 	const { cc, bcc } = options;
 
 	let url = `mailto:${to}`;
 
-	// Create email link query
 	const query = qs.stringify({
 		subject: subject,
 		body: body,
@@ -16,9 +16,7 @@ export async function sendEmail(to, subject, body, options = {}) {
 	if (query.length) {
 		url += `?${query}`;
 	}
-	console.log("url", url);
 
-	// check if we can use this link
 	const canOpen = await Linking.canOpenURL(url);
 
 	if (!canOpen) {
